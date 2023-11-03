@@ -1,1 +1,1 @@
-const myObject = 10;
+console.log('Hello World');
