@@ -168,6 +168,9 @@ input::placeholder {
   padding: 0px 10px 0 25px;
   position: relative;
 }
+input.error {
+  border: 1px solid red;
+}
 .input_icon {
   padding-left: 45px;
 }
