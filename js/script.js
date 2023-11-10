@@ -10,6 +10,10 @@ const page = {
     progressProcent: document.querySelector('.progress__procent'),
     progreesCoverBar: document.querySelector('.progrees__cover-bar'),
   },
+  content: {
+    daysConteiner: document.getElementById('days'),
+    nextDay: document.querySelector('.habbit__day'),
+  },
 };
 /* utils */
 function loadData() {
@@ -26,9 +30,6 @@ function saveData() {
 
 /* render */
 function rerenderMenu(activeHabbit) {
-  if (!activeHabbit) {
-    return;
-  }
   for (const habbit of habbits) {
     const existed = document.querySelector(`[menu-habbit-id="${habbit.id}"]`);
     if (!existed) {
@@ -52,9 +53,6 @@ function rerenderMenu(activeHabbit) {
 }
 
 function renderHaed(activeHabbit) {
-  if (!activeHabbit) {
-    return;
-  }
   page.header.h1.innerText = activeHabbit.name;
   const progress =
     activeHabbit.days.length / activeHabbit.target > 1
@@ -64,10 +62,30 @@ function renderHaed(activeHabbit) {
   page.header.progreesCoverBar.setAttribute('style', `width:${progress}% `);
 }
 
+function rerenderContent(activeHabbit) {
+  page.content.daysConteiner.innerHTML = '';
+  for (const index in activeHabbit.days) {
+    const element = document.createElement('div');
+    element.classList.add('habbit');
+    element.innerHTML = `<div class="habbit__day">День ${
+      Number(index) + 1
+    }</div>
+    <div class="habbit__comment">${activeHabbit.days[index].Comment}</div>
+    <button class="habbit__delete">
+      <img src="./img/delete.svg" alt="delete days ${index + 1}" />
+    </button>`;
+    page.content.daysConteiner.appendChild(element);
+  }
+  page.content.nextDay.innerHTML = `День ${activeHabbit.days.length + 1}`;
+}
 function rerender(activeHabbitId) {
   const activeHabbit = habbits.find((habbit) => habbit.id === activeHabbitId);
+  if (!activeHabbit) {
+    return;
+  }
   rerenderMenu(activeHabbit);
   renderHaed(activeHabbit);
+  rerenderContent(activeHabbit);
 }
 /* init */
 (() => {
