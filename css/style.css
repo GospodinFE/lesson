@@ -206,7 +206,7 @@ input.error {
   justify-content: center;
 }
 .cover_hidden {
-  /* display: none; */
+  display: none;
 }
 .popup {
   background: #ffffff;
